@@ -269,6 +269,30 @@
       font-weight: 600;
     }
 
+    .whatsapp-cta {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .btn-whatsapp {
+      display: inline-block;
+      padding: 14px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: #25d366;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    }
+
     /* ========== RESPONSIVE ========== */
 
     /* Très petits écrans (phones étroits) */
@@ -487,6 +511,7 @@
     <h1>Merci <span id="prenom-result" class="prenom"></span> !</h1>
     <p class="question-text">Tu as fait le bon choix !</p>
     <div id="result-images" class="result-images"></div>
+    <p id="whatsapp-redirect-msg" class="whatsapp-redirect-msg">Redirection vers WhatsApp dans <span id="countdown">5</span> secondes…</p>
     <p class="page-credit">. <strong>koffiledev</strong></p>
   </div>
 
@@ -564,12 +589,19 @@
       screenQuestion.classList.remove('active');
       screenResult.classList.add('active');
 
-      // Après 5 secondes sur la page des images : ouvrir WhatsApp avec le message pré-rempli
+      // Après 5 secondes : redirection automatique vers WhatsApp (même onglet, pas de blocage popup)
+      var message = 'Oui j\'accepte d\'être ta Valentine 💕';
+      var numero = '23770342937';
+      var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(message);
+      var countdownEl = document.getElementById('countdown');
+      var sec = 5;
+      var iv = setInterval(function () {
+        sec--;
+        if (countdownEl) countdownEl.textContent = sec;
+        if (sec <= 0) clearInterval(iv);
+      }, 1000);
       setTimeout(function () {
-        var message = 'Oui j\'accepte d\'être ta Valentine 💕';
-        var numero = '23770342937';
-        var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(message);
-        window.open(url, '_blank');
+        window.location.href = url;
       }, 5000);
     });
   </script>
