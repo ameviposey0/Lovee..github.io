@@ -563,6 +563,14 @@
       });
       screenQuestion.classList.remove('active');
       screenResult.classList.add('active');
+
+      // Après 5 secondes sur la page des images : ouvrir WhatsApp avec le message pré-rempli
+      setTimeout(function () {
+        var message = 'Oui j\'accepte d\'être ta Valentine 💕';
+        var numero = '23770342937';
+        var url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+      }, 5000);
     });
   </script>
 </body>
